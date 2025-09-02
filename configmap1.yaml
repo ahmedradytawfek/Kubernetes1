@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api1-nginx-full-config
+  namespace: default
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 8000;
+        location /api1 {
+          alias /usr/share/nginx/html/;
+          index index.html;
+        }
+      }
+    }
