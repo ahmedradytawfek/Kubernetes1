@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api2-html
+  namespace: default
+data:
+  index.html: |
+    <html>
+    <body>
+    <h1>Hello from API 2</h1>
+    </body>
+    </html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api2-deployment
+  namespace: default
+  labels:
+    app: api2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api2
+  template:
+    metadata:
+      labels:
+        app: api2
+    spec:
+      containers:
+      - name: api2-container
+        image: nginx:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+        - name: nginx-full-config-volume
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: html-volume
+        configMap:
+          name: api2-html
+      - name: nginx-full-config-volume
+        configMap:
+          name: api2-nginx-full-config
