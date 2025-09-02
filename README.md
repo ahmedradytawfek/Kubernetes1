@@ -11,15 +11,15 @@ Both applications are available through the same Ingress endpoint.
 
 ## 📂 Files
 
-| File            | Purpose                                |
-|-----------------|----------------------------------------|
-| `api1.yaml`     | Deployment + HTML ConfigMap for API1   |
-| `api2.yaml`     | Deployment + HTML ConfigMap for API2   |
-| `configmap1.yaml` | NGINX config for API1                 |
-| `configmap2.yaml` | NGINX config for API2                 |
-| `svc1.yaml`     | ClusterIP Service for API1             |
-| `svc2.yaml`     | ClusterIP Service for API2             |
-| `test.yml`      | Ingress configuration                  |
+| File                      | Purpose                                |
+|---------------------------|----------------------------------------|
+| `api1.yaml`               | Deployment + HTML ConfigMap for API1   |
+| `api2.yaml`               | Deployment + HTML ConfigMap for API2   |
+| `configmap1.yaml`         | NGINX config for API1                  |
+| `configmap2.yaml`         | NGINX config for API2                  |
+| `svc1.yaml`               | ClusterIP Service for API1             |
+| `svc2.yaml`               | ClusterIP Service for API2             |
+| `ingress-nginx.yml`       | Ingress configuration                  |
 
 ---
 
@@ -51,7 +51,7 @@ ClusterIP type (only accessible inside the cluster):
 
 ---
 
-### 4. Ingress (`test.yml`)
+### 4. Ingress (`ingress-nginx.yml`)
 - Uses the **NGINX Ingress Controller**
 - Routes traffic:
   - `/api1` → API1 Service
@@ -70,7 +70,7 @@ kubectl apply -f api1.yaml
 kubectl apply -f api2.yaml
 kubectl apply -f svc1.yaml
 kubectl apply -f svc2.yaml
-kubectl apply -f test.yml
+kubectl apply -f ingrss-nginx.yml
 
 
 Check resources:
