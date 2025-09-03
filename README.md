@@ -1,4 +1,4 @@
-# 🚀 Kubernetes 
+# 🚀 Kubernetes API Routing with NGINX Plus 
 Multi-API Deployment on Kubernetes with NGINX Plus
 
 This project demonstrates how to deploy two independent NGINX-based APIs into a Kubernetes cluster and expose them via a single NGINX **Ingress Controller**.
@@ -139,7 +139,7 @@ kubectl apply -f api2.yaml
 kubectl apply -f svc1.yaml
 kubectl apply -f svc2.yaml
 kubectl apply -f svc-dashboard.yaml
-kubectl apply -f ingrss-nginx.yml
+kubectl apply -f ingress-controller-nginx.yaml
 
 
 Check resources:
@@ -167,7 +167,7 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
 
 -------------------------------------
 
-🌍 Accessing the APIs
+##🌍 Accessing the APIs
 
 1- Get Ingress Controller Service:
  Your ingress controller is exposed via NodePort (nic-nginx-ingress-controller):
@@ -198,7 +198,7 @@ curl -H "Host: mcs.com" http://<NodeIP>:31194/api2/
 
 -----------------------
 
-📊 Enabling the NGINX Plus Dashboard
+## 📊 Enabling the NGINX Plus Dashboard
 The NGINX Plus Ingress Controller ships with a built-in live activity monitoring dashboard.
 This provides real-time visibility into HTTP traffic, upstream health, and configuration state.
 
@@ -224,10 +224,11 @@ You should now see the NGINX Plus Dashboard UI in your browser.
 
 ---------------------------------------------------------------
 
-🛠 Troubleshooting
-301 Redirects
+## 🛠 Troubleshooting
 
-* Requesting /api1 without a trailing slash may cause a redirect to /api1/.
+*301 Redirects
+
+   Requesting /api1 without a trailing slash may cause a redirect to /api1/.
 
    Fix: Use /api1/ or update nginx.conf to handle both paths.
 
