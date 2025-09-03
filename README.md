@@ -12,7 +12,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 
 ----------------------
 
-📡 Cluster Architecture
+#📡 Cluster Architecture
 
 - 3 Ubuntu VMs (1 control-plane, 2 workers)
 
@@ -28,7 +28,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 
 ----------------
 
-⚙️ Cluster Setup
+#⚙️ Cluster Setup
 
 1. Initialize the Control Plane
 
@@ -59,7 +59,7 @@ Configure kubectl for your user:
 
 -------------------------------
 
-🔑 Installing NGINX Plus Ingress
+#🔑 Installing NGINX Plus Ingress
 
 1. Obtain NGINX Plus License
 
