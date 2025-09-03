@@ -10,56 +10,60 @@ API2 → /api2/ → returns Hello from API 2
 Both applications are accessible through the same Ingress endpoint: **http://mcs.com**.
 
 
+
 ----------------------
+
 
 # 📡 Cluster Architecture
 
-- 3 Ubuntu VMs (1 control-plane, 2 workers)
+   - 3 Ubuntu VMs (1 control-plane, 2 workers)
 
-- Kubernetes v1.30.14 with containerd runtime
+   - Kubernetes v1.30.14 with containerd runtime
 
-- Calico CNI for pod networking and NetworkPolicy support
+   - Calico CNI for pod networking and NetworkPolicy support
 
-- NGINX Ingress Controller for external access and routing
+   - NGINX Ingress Controller for external access and routing
 
 
 * Request Flow
-  Client → Ingress Controller"nginx plus" → Service → Pod (nginx container)
+       Client → Ingress Controller"nginx plus" → Service → Pod (nginx container)
+
 
 ----------------
 
-#⚙️ Cluster Setup
+# ⚙️ Cluster Setup
 
-1. Initialize the Control Plane
+      1. Initialize the Control Plane
 
-On master node
-       sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+       On master node
+              
+              sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
-Configure kubectl for your user:
+             Configure kubectl for your user:
 
-    mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+                mkdir -p $HOME/.kube
+               sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+               sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-2. Join Worker Nodes
+     2. Join Worker Nodes
 
-    On each worker node:
+       On each worker node:
 
-         sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
-         --discovery-token-ca-cert-hash sha256:<HASH>
+           sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
+           --discovery-token-ca-cert-hash sha256:<HASH>
 
-3. Install Calico CNI
+      3. Install Calico CNI
    
-          kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
+            kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
 
 
-4. Verify:
+      4. Verify:
 
-       kubectl get pods -n kube-system
+          kubectl get pods -n kube-system
 
 -------------------------------
 
-#🔑 Installing NGINX Plus Ingress
+# 🔑 Installing NGINX Plus Ingress
 
 1. Obtain NGINX Plus License
 
