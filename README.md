@@ -44,15 +44,15 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 On each worker node:
 
-sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
-  --discovery-token-ca-cert-hash sha256:<HASH>
+   sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
+    --discovery-token-ca-cert-hash sha256:<HASH>
 
 3. Install Calico CNI
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
+          kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
 
 Verify:
 
-kubectl get pods -n kube-system
+   kubectl get pods -n kube-system
 
 -------------------------------
 
@@ -91,9 +91,9 @@ kubectl get pods -n kube-system
 
 ------------------------------
 
-## ⚙️ How It Works
+⚙️ How It Works
 
-### 1. ConfigMaps (`configmap1.yaml`, `configmap2.yaml`)
+ 1. ConfigMaps (`configmap1.yaml`, `configmap2.yaml`)
 Provide custom `nginx.conf` files:
 
 - **API1** → Listens on port `8000`, serves at `/api1`
@@ -103,7 +103,7 @@ The `alias` directive ensures `/usr/share/nginx/html/index.html` is served when 
 
 ---
 
-### 2. Deployments (`api1.yaml`, `api2.yaml`)
+ 2. Deployments (`api1.yaml`, `api2.yaml`)
 - Use the official `nginx:latest` image
 - Mount:
   - **HTML content (`index.html`)** from ConfigMap
@@ -111,7 +111,7 @@ The `alias` directive ensures `/usr/share/nginx/html/index.html` is served when 
 
 ---
 
-### 3. Services (`svc1.yaml`, `svc2.yaml`)
+ 3. Services (`svc1.yaml`, `svc2.yaml`)
 ClusterIP type (only accessible inside the cluster):
 
 - **API1**: forwards port `80 → 8000`
@@ -119,15 +119,15 @@ ClusterIP type (only accessible inside the cluster):
 
 ---
 
-### 4. Ingress  (`ingress-controller-nginx.yaml`)
+ 4. Ingress  (`ingress-controller-nginx.yaml`)
 - Uses the **NGINX Ingress Controller**
 - Routes traffic:
   - `/api1` → API1 Service
   - `/api2` → API2 Service
 
----
+--------------
 
-## 🚀 Deployment
+🚀 Deployment
 
 Apply all manifests:
 
@@ -167,7 +167,7 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
 
 -------------------------------------
 
-##🌍 Accessing the APIs
+🌍 Accessing the APIs
 
 1- Get Ingress Controller Service:
  Your ingress controller is exposed via NodePort (nic-nginx-ingress-controller):
@@ -198,7 +198,7 @@ curl -H "Host: mcs.com" http://<NodeIP>:31194/api2/
 
 -----------------------
 
-## 📊 Enabling the NGINX Plus Dashboard
+📊 Enabling the NGINX Plus Dashboard
 The NGINX Plus Ingress Controller ships with a built-in live activity monitoring dashboard.
 This provides real-time visibility into HTTP traffic, upstream health, and configuration state.
 
@@ -224,7 +224,7 @@ You should now see the NGINX Plus Dashboard UI in your browser.
 
 ---------------------------------------------------------------
 
-## 🛠 Troubleshooting
+ 🛠 Troubleshooting
 
 *301 Redirects
 
