@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: api2-nginx-full-config
-  namespace: default
+  namespace: default 
 data:
   nginx.conf: |
     events {}
