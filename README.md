@@ -208,7 +208,7 @@ The NGINX Plus Ingress Controller ships with a built-in live activity monitoring
 This provides real-time visibility into HTTP traffic, upstream health, and configuration state.
 
 1. Enable Dashboard in Deployment
-    In the Ingress Controller Deployment, ensure these flags are set:
+  /api1/  In the Ingress Controller Deployment, ensure these flags are set:
 
  kubectl edit deploy nic2-nginx-ingress-controller -n nginx-ingress
 
@@ -251,6 +251,6 @@ You should now see the NGINX Plus Dashboard UI in your browser.
 
 ✅ Summary
 
-API1 available at: http://mcs.com:31194/api1/
+API1 available at: http://mcs.com:31194
 
 API2 available at: http://mcs.com:31194/api2/
