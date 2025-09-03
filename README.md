@@ -48,7 +48,9 @@ On each worker node:
     --discovery-token-ca-cert-hash sha256:<HASH>
 
 3. Install Calico CNI
+   
           kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
+
 
 Verify:
 
@@ -167,7 +169,7 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
 
 -------------------------------------
 
-🌍 Accessing the APIs
+## 🌍 Accessing the APIs
 
 1- Get Ingress Controller Service:
  Your ingress controller is exposed via NodePort (nic-nginx-ingress-controller):
