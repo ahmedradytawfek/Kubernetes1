@@ -84,7 +84,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 
 -------------------------------
 
-## 📂 Files
+# 📂 Files
 
 | File                            | Purpose                                     |
 |---------------------------      |-------------------------------------------- |
@@ -100,7 +100,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 ------------------------------
 
 
-⚙️ How It Works
+# ⚙️ How It Works
 
  1. ConfigMaps (`configmap1.yaml`, `configmap2.yaml`)
 Provide custom `nginx.conf` files:
@@ -136,7 +136,7 @@ ClusterIP type (only accessible inside the cluster):
 
 --------------
 
-🚀 Deployment
+# 🚀 Deployment
 
 Apply all manifests:
 
@@ -176,7 +176,7 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
 
 --------
 
-🌍 Accessing the APIs
+# 🌍 Accessing the APIs
 
    1- Get Ingress Controller Service:
       Your ingress controller is exposed via NodePort (nic-nginx-ingress-controller):
@@ -199,8 +199,64 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
            curl -H "Host: mcs.com" http://<NodeIP>:31194/api2/
 
 
-  ✅ Expected responses:
+✅ Expected responses:
 
-        /api1/ → Hello from API 1
+/api1/ → Hello from API 1
+/api2/ → Hello from API 2
+
+-----------------------
+
+# 📊 Enabling the NGINX Plus Dashboard
+The NGINX Plus Ingress Controller ships with a built-in live activity monitoring dashboard.
+This provides real-time visibility into HTTP traffic, upstream health, and configuration state.
+
+1. Enable Dashboard in Deployment
+  In the Ingress Controller Deployment, ensure these flags are set:
+
+ kubectl edit deploy nic2-nginx-ingress-controller -n nginx-ingress
+
+ - -nginx-status=true
+ - -nginx-status-port=8080
+ - -nginx-status-allow-cidrs=0.0.0.0/0   # Allow access from all IPs or allocate specific subnet (use cautiously in prod)
+
+2. Expose Dashboard via NodePort
+
+Create a Service (svc-dashboard.yaml)
+
+3. Access the Dashboard
+
+From your master node (or any cluster node):
+
+http://<NodeIP>:32080/dashboard.html
+You should now see the NGINX Plus Dashboard UI in your browser.
+
+---------------------------------------------------------------
+
+# 🛠 Troubleshooting
+
+*301 Redirects
+
+   Requesting /api1 without a trailing slash may cause a redirect to /api1/.
+
+   Fix: Use /api1/ or update nginx.conf to handle both paths.
+
+* 404 Not Found
+
+  Path does not match Ingress rules.
+
+ Check: Service ports (targetPort: 8000 / 8080) and Ingress paths.
+
+* 502 Bad Gateway
+
+   Usually a Service port mismatch.
+
+   Check: Deployment → Service → Ingress port consistency.
+
+✅ Summary
+
+API1 available at: http://mcs.com:31194/api1/
+
+API2 available at: http://mcs.com:31194/api2/
+
        /api2/ → Hello from API 2
 
