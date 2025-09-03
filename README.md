@@ -135,47 +135,49 @@ ClusterIP type (only accessible inside the cluster):
   - `/api2` → API2 Service
 
 --------------
-
 # 🚀 Deployment
 
-Apply all manifests:
+            Apply all manifests:
 
-```bash
-kubectl apply -f configmap1.yaml
-kubectl apply -f configmap2.yaml
-kubectl apply -f api1.yaml
-kubectl apply -f api2.yaml
-kubectl apply -f svc1.yaml
-kubectl apply -f svc2.yaml
-kubectl apply -f svc-dashboard.yaml
-kubectl apply -f ingress-controller-nginx.yaml
-
-
-Check resources:
-
-kubectl get pods
-kubectl get svc
-kubectl get ingress
-
-- you have to get these on the namespace nginx-ingress :
-
-test@k8s-master01:~$ kubectl get deploy -n nginx-ingress
-NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
-nic2-nginx-ingress-controller   1/1     1            1           64m
+              kubectl apply -f configmap1.yaml
+              kubectl apply -f configmap2.yaml
+              kubectl apply -f api1.yaml
+              kubectl apply -f api2.yaml
+              kubectl apply -f svc1.yaml
+              kubectl apply -f svc2.yaml
+              kubectl apply -f svc-dashboard.yaml
+              kubectl apply -f ingress-controller-nginx.yaml
 
 
-test@k8s-master01:~$ kubectl get pod -n nginx-ingress
-NAME                                             READY   STATUS    RESTARTS   AGE
-nic2-nginx-ingress-controller-58b8d5f759-f7nf9   1/1     Running   0          53m
+            Check resources:
+
+              kubectl get pods
+              kubectl get svc
+              kubectl get ingress
+
+            - you have to get these on the namespace nginx-ingress :
+            
+              test@k8s-master01:~$ kubectl get deploy -n nginx-ingress
+              NAME                            READY   UP-TO-DATE   AVAILABLE   AGE
+              nic2-nginx-ingress-controller   1/1     1            1           64m
+              
+              
+              test@k8s-master01:~$ kubectl get pod -n nginx-ingress
+              NAME                                             READY   STATUS    RESTARTS   AGE
+              nic2-nginx-ingress-controller-58b8d5f759-f7nf9   1/1     Running   0          53m
 
 
-test@k8s-master01:~$ kubectl get svc -n nginx-ingress
+              test@k8s-master01:~$ kubectl get svc -n nginx-ingress
+              
+              NAME                            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+              nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:31409/TCP,443:32061/TCP   66m
 
-NAME                            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:31409/TCP,443:32061/TCP   66m
 
---------
 
+
+
+
+-------------------------
 # 🌍 Accessing the APIs
 
    1- Get Ingress Controller Service:
@@ -207,17 +209,18 @@ nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:3140
 -----------------------
 
 # 📊 Enabling the NGINX Plus Dashboard
+
 The NGINX Plus Ingress Controller ships with a built-in live activity monitoring dashboard.
 This provides real-time visibility into HTTP traffic, upstream health, and configuration state.
 
 1. Enable Dashboard in Deployment
   In the Ingress Controller Deployment, ensure these flags are set:
 
- kubectl edit deploy nic2-nginx-ingress-controller -n nginx-ingress
+        kubectl edit deploy nic2-nginx-ingress-controller -n nginx-ingress
 
- - -nginx-status=true
- - -nginx-status-port=8080
- - -nginx-status-allow-cidrs=0.0.0.0/0   # Allow access from all IPs or allocate specific subnet (use cautiously in prod)
+          - -nginx-status=true
+          - -nginx-status-port=8080
+          - -nginx-status-allow-cidrs=0.0.0.0/0   # Allow access from all IPs or allocate specific subnet (use cautiously in prod)
 
 2. Expose Dashboard via NodePort
 
