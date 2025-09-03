@@ -12,7 +12,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 
 ----------------------
 
-#📡 Cluster Architecture
+# 📡 Cluster Architecture
 
 - 3 Ubuntu VMs (1 control-plane, 2 workers)
 
