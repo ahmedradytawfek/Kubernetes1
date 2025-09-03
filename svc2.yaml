@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: api2-svc
+  name: api2-svc2
   namespace: default
 spec:
   selector:
