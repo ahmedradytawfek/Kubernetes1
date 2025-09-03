@@ -170,5 +170,33 @@ test@k8s-master01:~$ kubectl get svc -n nginx-ingress
 NAME                            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 nic2-nginx-ingress-controller   NodePort   10.105.214.95   <none>        80:31409/TCP,443:32061/TCP   66m
 
--------------------------------------
+--------
+
+🌍 Accessing the APIs
+
+   1- Get Ingress Controller Service:
+      Your ingress controller is exposed via NodePort (nic-nginx-ingress-controller):
+
+                 kubectl get svc -n nginx-ingress
+
+                Example output:
+
+                 NAME                           TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+                 nic-nginx-ingress-controller   NodePort   10.110.200.140   <none>        80:31194/TCP,443:32277/TCP   5d
+
+
+                 NodePort 31194 → HTTP
+                 NodePort 32277 → HTTPS
+
+  2- Test APIs:
+         Add the Host header (mcs.com):
+
+           curl -H "Host: mcs.com" http://<NodeIP>:31194/api1/
+           curl -H "Host: mcs.com" http://<NodeIP>:31194/api2/
+
+
+  ✅ Expected responses:
+
+        /api1/ → Hello from API 1
+       /api2/ → Hello from API 2
 
