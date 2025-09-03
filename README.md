@@ -26,7 +26,8 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 
 
 * Request Flow
-       Client → Ingress Controller"nginx plus" → Service → Pod (nginx container)
+  
+          Client → Ingress Controller"nginx plus" → Service → Pod (nginx container)
 
 
 ----------------
@@ -52,7 +53,7 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
            sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
            --discovery-token-ca-cert-hash sha256:<HASH>
 
-      3. Install Calico CNI
+      3. Install Calico CNI on masetr node
    
             kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
 
@@ -203,8 +204,9 @@ ClusterIP type (only accessible inside the cluster):
 
 ✅ Expected responses:
 
-/api1/ → Hello from API 1
-/api2/ → Hello from API 2
+   /api1/ → Hello from API 1
+   
+   /api2/ → Hello from API 2
 
 -----------------------
 
@@ -224,14 +226,14 @@ This provides real-time visibility into HTTP traffic, upstream health, and confi
 
 2. Expose Dashboard via NodePort
 
-Create a Service (svc-dashboard.yaml)
+         Create a Service (svc-dashboard.yaml)
 
 3. Access the Dashboard
 
-From your master node (or any cluster node):
+        From your master node (or any cluster node):
 
-http://<NodeIP>:32080/dashboard.html
-You should now see the NGINX Plus Dashboard UI in your browser.
+            http://<NodeIP>:32080/dashboard.html
+            You should now see the NGINX Plus Dashboard UI in your browser.
 
 ---------------------------------------------------------------
 
