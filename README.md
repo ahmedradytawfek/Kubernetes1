@@ -258,5 +258,4 @@ API1 available at: http://mcs.com:31194/api1/
 
 API2 available at: http://mcs.com:31194/api2/
 
-       /api2/ → Hello from API 2
 
