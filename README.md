@@ -1,14 +1,28 @@
 # 🚀 Kubernetes NGINX APIs with Ingress
 
-This project deploys two independent **NGINX-based APIs** (`API1` and `API2`) into Kubernetes and exposes them via a **single NGINX Ingress Controller**.
+This project demonstrates how to deploy two independent NGINX-based APIs into a Kubernetes cluster and expose them via a single NGINX **Ingress Controller**.
 
-- **API1** → Serves `Hello from API 1` at `/api1`
-- **API2** → Serves `Hello from API 2` at `/api2`
+API1 → /api1/ → returns Hello from API 1
 
-Both applications are available through the same Ingress endpoint.
+API2 → /api2/ → returns Hello from API 2
+
+Both applications are accessible through the same Ingress endpoint: **http://mcs.com**.
+
 
 ---
+📡 Cluster Architecture
+*Cluster Setup
 
+- 3 Ubuntu VMs (1 control-plane, 2 workers)
+
+- Kubernetes v1.30.14 with containerd runtime
+
+- NGINX Ingress Controller for routing
+
+* Request Flow
+  Client → Ingress Controller → Service → Pod (nginx container)
+
+----
 ## 📂 Files
 
 | File                      | Purpose                                |
