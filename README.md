@@ -31,30 +31,31 @@ Both applications are accessible through the same Ingress endpoint: **http://mcs
 ⚙️ Cluster Setup
 
 1. Initialize the Control Plane
-# On master node
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+
+On master node
+       sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
 Configure kubectl for your user:
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 2. Join Worker Nodes
 
-On each worker node:
+    On each worker node:
 
-   sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
-    --discovery-token-ca-cert-hash sha256:<HASH>
+         sudo kubeadm join <MASTER_IP>:6443 --token <TOKEN> \
+         --discovery-token-ca-cert-hash sha256:<HASH>
 
 3. Install Calico CNI
    
           kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/calico  
 
 
-Verify:
+4. Verify:
 
-   kubectl get pods -n kube-system
+       kubectl get pods -n kube-system
 
 -------------------------------
 
@@ -63,18 +64,19 @@ Verify:
 1. Obtain NGINX Plus License
 
    - Download your nginx-repo.crt and nginx-repo.key from MyF5 portal
-  - Copy them to your cluster node (control plane).
+   - Copy them to your cluster node (control plane).
 
 2. Create Kubernetes Secret for License
 
-   kubectl create secret generic nginx-repo-secret \
-  --from-file=nginx-repo.crt=./nginx-repo.crt \
-  --from-file=nginx-repo.key=./nginx-repo.key
+     kubectl create secret generic nginx-repo-secret \
+     --from-file=nginx-repo.crt=./nginx-repo.crt \
+     --from-file=nginx-repo.key=./nginx-repo.key
 
 3. Add NGINX Plus Helm Repo
 
-   helm repo add nginx-stable https://pkgs.nginx.com/helm/nginx-stable
-   helm repo update
+     helm repo add nginx-stable https://pkgs.nginx.com/helm/nginx-stable
+
+     helm repo update
 
 -------------------------------
 
@@ -92,6 +94,7 @@ Verify:
 | `svc-dashboar.yaml`             | nginx-plus dashboard enable from masternode |
 
 ------------------------------
+
 
 ⚙️ How It Works
 
